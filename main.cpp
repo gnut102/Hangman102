@@ -59,19 +59,18 @@ int main()
     int incorrectGuess = 0;
     string correctChars = "";
     string incorrectChars = "";
-    
-    printScreen(word, secretWord, correctChars, incorrectGuess, incorrectChars); 
+    int scores=0;
+    printScreen(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores); 
     
     do {
         char ch = getInputCharacter();
         processData(ch, word, secretWord, 
-                    correctChars, incorrectGuess, incorrectChars);
-        
-        printScreen(word, secretWord, correctChars, incorrectGuess, incorrectChars); 
+                    correctChars, incorrectGuess, incorrectChars,scores);
+        printScreen(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores); 
 
     } while (secretWord != word && incorrectGuess != MAX_MISTAKES-1);
 
-    playAnimation(word, secretWord, correctChars, incorrectGuess, incorrectChars);
+    playAnimation(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores);
     
 
     cout<<"\n\nPlay again?\n"<<"y/n?\n";

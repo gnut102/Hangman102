@@ -155,8 +155,10 @@ string getNextStandingman()
 
 void printStats(const string& word, const string& secretWord,
                  const string& correctChars,
-                 const int incorrectGuess, const string& incorrectChars)
-{
+                 const int incorrectGuess, const string& incorrectChars,
+                 const int scores)
+{       
+        cout << "Your score: "<< scores<<endl;
         cout << "Current word: " << secretWord;
         cout << endl << "Correct guesses: " << correctChars;
         cout << "    " << "Incorrect guesses: " << incorrectChars;
@@ -172,18 +174,20 @@ void printStats(const string& word, const string& secretWord,
 
 void printScreen(const string& word, const string& secretWord,
                  const string& correctChars,
-                 const int incorrectGuess, const string& incorrectChars)
+                 const int incorrectGuess, const string& incorrectChars,
+                 const int scores)
 {
     system("cls");
         
     cout << getDrawing(incorrectGuess);
-    printStats(word, secretWord, correctChars, incorrectGuess, incorrectChars); 
+    printStats(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores); 
 
 }
 
 void playAnimation(const string& word, const string& secretWord,
                  const string& correctChars,
-                 const int incorrectGuess, const string& incorrectChars)
+                 const int incorrectGuess, const string& incorrectChars,
+                 const int scores)
 {
     for (int i = 0; i < 21; ++i) {
        system("cls");
@@ -193,7 +197,7 @@ void playAnimation(const string& word, const string& secretWord,
         } else if (incorrectGuess == MAX_MISTAKES-1) {
             cout << getNextHangman();
         }
-        printStats(word, secretWord, correctChars, incorrectGuess, incorrectChars); 
+        printStats(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores); 
 
         std::this_thread::sleep_for (std::chrono::milliseconds(1000/2));
     }

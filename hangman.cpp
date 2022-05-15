@@ -11,7 +11,7 @@ using std::vector;
 using std::ifstream;
 using std::domain_error;
 using std::cin;
-
+//Function: guilde
 void guilde()
 {
     cout << "Welcome to Hangman!" << endl;
@@ -30,14 +30,16 @@ void guilde()
 
 }
 
+// Function: select mode
 string selectmode(){
     char mode;
     cout << "Select mode \n" ;
     cout << "1. Easy \n";
     cout << "2. Medium \n";
     cout << "3. Hard \n";
+  
     cin >> mode;
-    while(mode == '1' || mode == '2' || mode == '3'){
+    
     if(mode == '1'){
         return "data/easy.txt";
     }
@@ -48,7 +50,7 @@ string selectmode(){
         return "data/hard.txt";
     }
     }
-}
+
 
 // Function 1: Generate a random integer number between min and max.
 int generateRandomNumber(const int min, const int max)
@@ -138,8 +140,9 @@ void updateIncorrectGuess(int& incorrectGuess){
 void processData(const char ch, const string& word,
                 string& secretWord,
                 string& correctChars,
-                int& incorrectGuess, string& incorrectChars)
-{
+                int& incorrectGuess, string& incorrectChars,
+                int &scores)
+{   
     // Your code here
     if(isCharInWord(ch,word))
     {
@@ -149,6 +152,7 @@ void processData(const char ch, const string& word,
         updateIncorrectGuess(incorrectGuess);
         updateEnteredChars(ch,incorrectChars);
     }
+    scores = score(scores, ch, word);
 }
 
 // Function 8: Based on secretWord's length, generate hidden characters in form of "---"
@@ -161,4 +165,12 @@ string generateHiddenCharacters(string secretWord){
     }
     return secretWord;
 }
-
+int score(int & scores, const char ch, const string & word){
+    if(isCharInWord(ch,word)){
+        scores++;
+    }
+    else {
+        scores--;
+    }
+    return scores;
+}
