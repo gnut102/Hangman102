@@ -9,8 +9,7 @@
 #include<cctype>
 
 
-using std::string;
-using std::vector;
+using namespace std;
 
 void guilde();
 string selectmode();
@@ -31,5 +30,10 @@ void processData(const char ch, const string& word,
 int generateRandomNumber(const int min, const int max);
 bool isCharInWord(const char ch, const string& word);
 vector<string> readWordListFromFile(const string& filePath);
-int score(int & scores, const char ch, const string & word);
+int score(int & scores, const char ch, const string& word);
+vector <int> highscore(const string & scorelist);
+void showHighscore(const vector <int> & v);
+void saveyourscore(vector <int> &v, int &scores, 
+                    const string& word, const string& secretWord,
+                    const int incorrectGuess);
 #endif

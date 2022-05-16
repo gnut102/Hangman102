@@ -1,9 +1,10 @@
 #ifndef GUARD_draw
 #define GUARD_draw
-
+#include <iostream>
 #include <string>
 
 using namespace std;
+
 const int MAX_MISTAKES = 8;
 
 void printScreen(const string& word, const string& secretWord,

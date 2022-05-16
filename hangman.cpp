@@ -3,7 +3,7 @@
 #include "hangman.h"
 #include <cctype>
 #include <windows.h>
-
+#include <algorithm>
 
 using namespace std;
 using std::string;
@@ -11,6 +11,8 @@ using std::vector;
 using std::ifstream;
 using std::domain_error;
 using std::cin;
+const int MAX_MISTAKES = 8;
+
 //Function: guilde
 void guilde()
 {
@@ -71,6 +73,7 @@ vector<string> readWordListFromFile(const string& filePath)
     }
     return v;
 }
+
 
 // Function 2: Check if a character is in a string or not.
 bool isCharInWord(const char ch, const string& word)
@@ -165,6 +168,8 @@ string generateHiddenCharacters(string secretWord){
     }
     return secretWord;
 }
+
+//Function 9: Print score
 int score(int & scores, const char ch, const string & word){
     if(isCharInWord(ch,word)){
         scores++;
@@ -173,4 +178,52 @@ int score(int & scores, const char ch, const string & word){
         scores--;
     }
     return scores;
+}
+
+// Funciotn 10: Top score
+vector <int> highscore(const string& scorelist){
+    vector <int> v;
+    ifstream f_in(scorelist);
+    int score;
+    while(f_in >> score)
+    {   
+        v.push_back(score);
+    }
+    sort(v.begin(),v.end());
+    reverse(v.begin(),v.end());
+    return v;
+    
+}
+
+void showHighscore(const vector <int> & v){
+    cout << "Highscore: " << endl;
+    for(int i=0;i<5;i++){
+        cout << i+1 << ": " << v[i] << endl;
+    }
+    cout << endl;
+}
+
+//Function 11: save your score
+void saveyourscore(vector <int> &v, int &scores, 
+                    const string& word, const string& secretWord,
+                    const int incorrectGuess){
+      ofstream fileout ("data/score.txt");
+
+    if (secretWord == word) {
+
+        for(int i=0;i<v.size();i++){
+            fileout << v[i] << endl;
+        }
+        fileout << scores << endl;
+
+    } else if (incorrectGuess == MAX_MISTAKES-1) {
+
+        for(int i=0;i<v.size();i++){
+            fileout << v[i] << endl;
+        }
+        fileout << scores << endl;
+    }
+
+    fileout.close();
+
 }

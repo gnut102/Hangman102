@@ -2,11 +2,10 @@
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
 #include "hangman.h"
+#include <string.h>
+#include <fstream>
 
-using std::string;
-using std::endl;
-using std::cout;
-
+using namespace std;
 const int MAX_MISTAKES = 8;
 
 string getDrawing(const int i) 
@@ -165,8 +164,10 @@ void printStats(const string& word, const string& secretWord,
 
         if (secretWord == word) {
             cout << endl << "Well done :D   The word is: " << word << endl;
+ 
         } else if (incorrectGuess == MAX_MISTAKES-1) {
             cout << endl << "You lose :(   The word is: " << word << endl;
+
         } else {
             cout << endl << "Choose a character: ";
         }

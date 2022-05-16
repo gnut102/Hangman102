@@ -14,9 +14,53 @@ int main()
     guilde();
 
     do{
+            srand((int)time(0));
 
-    srand((int)time(0));
-    string vocabularyFile=selectmode();
+    // danh sach diem cao
+    vector <int> highscorelist;
+    string filescore = "data/score.txt";
+        try {
+        highscorelist = highscore(filescore);
+        
+    } catch (domain_error) {
+        cout << endl << "Error: in reading vocabulary file: " << "data/score.txt" << endl;
+        return 1;
+    }
+    
+    int choice;
+    char back;
+    string vocabularyFile;
+
+    // chon xem diem hay chon man choi 
+    do{
+
+        cout <<" ___________________________________________"<<endl;
+        cout << "1. High score" << endl;
+        cout << "2. New game" << endl;
+        cin >> choice;
+        if(choice != 1 && choice != 2)
+        {
+            cout << "Please enter 1 or 2" << endl;
+        }
+        else {
+            switch(choice)
+            {
+                case 1:
+                    showHighscore(highscorelist);
+                    cout << "Press B to exit" << endl;
+                    cin >> back;
+                    system("cls");
+                    vocabularyFile = selectmode();
+                    break;
+                case 2:
+                    vocabularyFile = selectmode();
+                    break;
+            }
+        }
+    }while(choice != 1 && choice != 2);
+
+    
+    
 
     // vector wordList la danh sach cac tu ngau nhien 
     vector<string> wordList;
@@ -67,13 +111,13 @@ int main()
         processData(ch, word, secretWord, 
                     correctChars, incorrectGuess, incorrectChars,scores);
         printScreen(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores); 
-
+        saveyourscore(highscorelist, scores, word, secretWord, incorrectGuess);
     } while (secretWord != word && incorrectGuess != MAX_MISTAKES-1);
-
+       
     playAnimation(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores);
     
 
-    cout<<"\n\nPlay again?\n"<<"y/n?\n";
+    cout<<"\nPlay again?\n"<<"  [Y/N]?\n";
     cin>>replay;
     }
     while(replay=='y');
