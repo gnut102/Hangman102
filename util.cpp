@@ -7,17 +7,17 @@
 
 using namespace std;
 
-int generateRandomNumber(int min, int max)
+int generateRandomNumberai(int min, int max)
 {
     return rand() % (max-min) + min;
 }
 
-bool isCharInWord(char ch, string word)
+bool isCharInWordai(char ch, string word)
 {
     return (word.find_first_of(ch) != string::npos);
 }
 
-vector<string> readWordListFromFile(const string& filePath)
+vector<string> readWordListFromFileai(const string& filePath)
 {
     vector<string> wordList;
     string word;

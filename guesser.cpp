@@ -6,7 +6,7 @@
 
 using namespace std;
 
-set<char> getRemainingChars(const set<char>& previousGuesses)
+set<char> getRemainingCharsai(const set<char>& previousGuesses)
 {
     set<char> remainingChars;
     for (char c = 'a'; c <= 'z'; c++)
@@ -16,7 +16,7 @@ set<char> getRemainingChars(const set<char>& previousGuesses)
     return remainingChars;
 }
 
-char selectRandomChar(const set<char>& s) {
+char selectRandomCharai(const set<char>& s) {
   int r = rand() % s.size();
   set<char>::iterator it = s.begin();
   for (; r != 0; r--) it++;
@@ -84,9 +84,9 @@ char getMaxOccurenceChar(const set<char>& remainingChars, const map<char, int>& 
 
 char getNextGuess(const set<char>& previousGuesses, const string& secretWord)
 {
-    static vector<string> wordList = readWordListFromFile("data/dictionary.txt");
+    static vector<string> wordList = readWordListFromFileai("data/hard.txt");
     //static vector<string> wordList = readWordListFromFile("data/Ogden_Picturable_200.txt");
-    set<char> remainingChars = getRemainingChars(previousGuesses);
+    set<char> remainingChars = getRemainingCharsai(previousGuesses);
     if (remainingChars.size() == 0)
         return 0;
 
