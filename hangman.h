@@ -6,7 +6,7 @@
 #include <vector>
 #include <stdexcept>
 #include <algorithm>
-#include<cctype>
+#include <cctype>
 
 
 using namespace std;
@@ -36,4 +36,6 @@ void showHighscore(const vector <int> & v);
 void saveyourscore(vector <int> &v, int &scores, 
                     const string& word, const string& secretWord,
                     const int incorrectGuess);
+int chossetype();
+char gethelp(const int& incorrectGuess, const string& secretWord, const string& word);
 #endif

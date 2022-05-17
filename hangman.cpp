@@ -227,3 +227,27 @@ void saveyourscore(vector <int> &v, int &scores,
     fileout.close();
 
 }
+
+// Funcion 12: select game type
+int chossetype(){
+    int typemode;
+    cout << "Select game type \n" ;
+    cout << "1. You guess a word\n";
+    cout << "2. You think a word \n";
+    cout << "3. Exit \n";
+    cin >> typemode;
+    return typemode;
+}
+
+char gethelp(const int& incorrectGuess, const string& secretWord, const string& word){
+    int i;
+    int n = word.size();
+    char helpletter=' ';
+    for(int i=0;i<n;i++){
+        if(secretWord[i]!=word[i]){
+            helpletter = word[i];
+            break;
+        }
+    }
+    return helpletter;
+}

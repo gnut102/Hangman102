@@ -7,14 +7,11 @@
 #include "hangman.h"
 #include "draw.h"
 using namespace std;
-int main()
-{
-    char replay ='y';
 
+int playerguess(){
+    
     guilde();
-
-    do{
-            srand((int)time(0));
+    srand((int)time(0));
 
     // danh sach diem cao
     vector <int> highscorelist;
@@ -41,13 +38,13 @@ int main()
         if(choice != 1 && choice != 2)
         {
             cout << "Please enter 1 or 2" << endl;
+            cin >> choice;
         }
-        else {
             switch(choice)
             {
                 case 1:
                     showHighscore(highscorelist);
-                    cout << "Press B to exit" << endl;
+                    cout << "Press P to play" << endl;
                     cin >> back;
                     system("cls");
                     vocabularyFile = selectmode();
@@ -55,7 +52,7 @@ int main()
                 case 2:
                     vocabularyFile = selectmode();
                     break;
-            }
+            
         }
     }while(choice != 1 && choice != 2);
 
@@ -111,16 +108,51 @@ int main()
         processData(ch, word, secretWord, 
                     correctChars, incorrectGuess, incorrectChars,scores);
         printScreen(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores); 
+        if(incorrectGuess == 5 && scores < -3){
+            cout <<"\n\nHave '"<< gethelp(incorrectGuess, secretWord, word) << "' in the word"<<endl;
+        }   
         saveyourscore(highscorelist, scores, word, secretWord, incorrectGuess);
+        
     } while (secretWord != word && incorrectGuess != MAX_MISTAKES-1);
        
     playAnimation(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores);
     
 
-    cout<<"\nPlay again?\n"<<"  [Y/N]?\n";
-    cin>>replay;
-    }
-    while(replay=='y');
-    cout << " Thank for playing";
     return 0;
+
+    }
+    
+    
+int computerguess(){
+    
+}
+
+
+int main()
+{
+    char typemode = 0;
+    char replay = 'y';
+    do{
+    do{
+    typemode = chossetype();
+    if(typemode != 1 && typemode != 2 && typemode != 3){
+        cout << "Please enter 1, 2 or 3" << endl;
+        typemode = chossetype();
+    }
+    }while(typemode != 1 && typemode != 2 && typemode != 3);
+    switch(typemode){
+        case 1:
+            system("cls");
+            playerguess();
+            break;
+        case 2:
+            system("cls");
+            computerguess();
+            break;
+        case 3: 
+            return 0;
+    }
+    cout << "Play again?\n"<<"  [Y/N]?\n";
+    cin>>replay;
+    }while(replay == 'y');
 }

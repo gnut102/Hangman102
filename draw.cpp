@@ -179,7 +179,7 @@ void printScreen(const string& word, const string& secretWord,
                  const int scores)
 {
     system("cls");
-        
+     
     cout << getDrawing(incorrectGuess);
     printStats(word, secretWord, correctChars, incorrectGuess, incorrectChars, scores); 
 
