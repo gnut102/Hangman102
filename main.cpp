@@ -4,9 +4,16 @@
 #include <ctime>
 #include <stdexcept>
 #include <algorithm>
+#include <windows.h>
 #include "hangman.h"
 #include "draw.h"
+#include "util.h"
+#include "guesser.h"
+#include "drawai.h"
+#include "hangmanai.h"
 using namespace std;
+
+#define MAX_GUESSES 7
 
 int playerguess(){
     
@@ -122,9 +129,41 @@ int playerguess(){
 
     }
     
-    
+
+
 int computerguess(){
-    
+    int wordLength;
+    string secretWord;
+    int incorrectGuess;
+    set<char> previousGuesses;
+    bool stop;
+
+    guidleai();
+
+    initialize(wordLength, secretWord, incorrectGuess, previousGuesses, stop);
+
+    render(incorrectGuess, previousGuesses, secretWord);
+    do {
+        char guess = getNextGuess(previousGuesses, secretWord);
+        if (guess == 0) {
+            cout << "I give up, hang me" << endl;
+            return 0;
+        }
+
+        do {
+            try {
+                string mask = getUserAnswer(guess);
+                update(guess, mask, incorrectGuess, previousGuesses, secretWord, stop);
+                break;
+            } catch (invalid_argument e) {
+                cout << "Invalid mask, try again" << endl;
+            }
+        } while (true);
+        render(incorrectGuess, previousGuesses, secretWord);
+    } while (!stop);
+    playAnimationai(incorrectGuess == MAX_GUESSES, secretWord);
+
+    return 0;
 }
 
 
@@ -133,6 +172,7 @@ int main()
     char typemode = 0;
     char replay = 'y';
     do{
+        system("cls");
     do{
     typemode = chossetype();
     if(typemode != 1 && typemode != 2 && typemode != 3){
